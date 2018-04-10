@@ -1,4 +1,4 @@
-# Raspberry Pi SPL meter
+# Python SPL meter
 * Sound Pressure Level meter with RPI implemented with Python.
 * Author: Seyoung Park
 * E-mail: seyoung.arts.park@protonmail.com
