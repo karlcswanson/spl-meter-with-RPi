@@ -5,10 +5,6 @@ import spl_lib as spl
 from scipy.signal import lfilter
 import numpy
 
-## For web browser handling
-# from selenium import webdriver
-
-
 ''' The following is similar to a basic CD quality
    When CHUNK size is 4096 it routinely throws an IOError.
    When it is set to 8192 it doesn't.
@@ -94,14 +90,11 @@ def listen(old=0, error_count=0, min_decibel=100, max_decibel=0):
                 print('A-weighted: {:+.2f} dB'.format(new_decibel))
                 update_text(SINGLE_DECIBEL_FILE_PATH, '{:.2f} dBA'.format(new_decibel))
                 max_decibel = update_max_if_new_is_larger_than_max(new_decibel, max_decibel)
-                # click('update_decibel')
 
 
     stream.stop_stream()
     stream.close()
     pa.terminate()
-
-
 
 if __name__ == '__main__':
     listen()
