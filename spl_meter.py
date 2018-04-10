@@ -6,7 +6,7 @@ from scipy.signal import lfilter
 import numpy
 
 ## For web browser handling
-from selenium import webdriver
+# from selenium import webdriver
 
 
 ''' The following is similar to a basic CD quality
@@ -63,18 +63,11 @@ def update_text(path, content):
         f.write(content)
         f.close()
 
-def click(id):
-    driver.find_element_by_id(id).click()
-
-def open_html(path):
-    driver.get(path)
-
 def update_max_if_new_is_larger_than_max(new, max):
     print("update_max_if_new_is_larger_than_max called")
     if new > max:
         print("max observed")
         update_text(MAX_DECIBEL_FILE_PATH, 'MAX: {:.2f} dBA'.format(new))
-        click('update_max_decibel')
         return new
     else:
         return max
@@ -86,7 +79,7 @@ def listen(old=0, error_count=0, min_decibel=100, max_decibel=0):
         try:
             ## read() returns string. You need to decode it into an array later.
             block = stream.read(CHUNK)
-        except IOError, e:
+        except IOError as e:
             error_count += 1
             print(" (%d) Error recording: %s" % (error_count, e))
         else:
@@ -101,7 +94,7 @@ def listen(old=0, error_count=0, min_decibel=100, max_decibel=0):
                 print('A-weighted: {:+.2f} dB'.format(new_decibel))
                 update_text(SINGLE_DECIBEL_FILE_PATH, '{:.2f} dBA'.format(new_decibel))
                 max_decibel = update_max_if_new_is_larger_than_max(new_decibel, max_decibel)
-                click('update_decibel')
+                # click('update_decibel')
 
 
     stream.stop_stream()
@@ -111,7 +104,4 @@ def listen(old=0, error_count=0, min_decibel=100, max_decibel=0):
 
 
 if __name__ == '__main__':
-    driver = webdriver.Firefox()
-    open_html(HTML_PATH)
     listen()
-    driver.close()
